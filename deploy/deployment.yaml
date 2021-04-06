@@ -11,3 +11,9 @@ spec:
       ports:
         - containerPort: 8080
           name: "gokub-http"
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 3
