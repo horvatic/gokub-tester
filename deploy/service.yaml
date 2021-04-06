@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gokub-tester-example
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      nodePort: 30081
+      targetPort: gokub-http
+  selector:
+    app: gokub-tester
