@@ -7,7 +7,7 @@ WORKDIR /build
 COPY . .
 RUN go build -o bin/gokub-tester cmd/gokub-tester/main.go
 
-FROM alpine:latest
+FROM alpine:3
 RUN apk --no-cache add ca-certificates
 WORKDIR /dist
 COPY --from=builder /build/bin/gokub-tester .
