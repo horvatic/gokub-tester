@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gokub-config
+data:
+  namespace: "default"
+  service: "gokub"
