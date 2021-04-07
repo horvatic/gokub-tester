@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/health", health)
+	http.HandleFunc("/gokub/health", health)
 	http.HandleFunc("/", testReq)
 	http.ListenAndServe(":8080", nil)
 }
