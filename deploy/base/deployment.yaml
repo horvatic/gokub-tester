@@ -8,6 +8,17 @@ spec:
   containers:
     - name: gokub-tester
       image: horvatic/gokub-tester
+      env:
+        - name: NAMESPACE
+          valueFrom:
+            configMapKeyRef: 
+              name: gokub-config
+              key: namespace 
+        - name: SERVICE
+          valueFrom:
+            configMapKeyRef: 
+              name: gokub-config
+              key: service 
       ports:
         - containerPort: 8080
           name: "gokub-http"
