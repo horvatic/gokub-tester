@@ -41,7 +41,7 @@ jobs:
       uses: Azure/setup-kubectl@v1
   
     - name: Setup kubectl
-    - run: |
+      run: |
         cd $HOME
         mkdir .kube
         cd .kube
