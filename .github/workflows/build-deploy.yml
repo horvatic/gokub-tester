@@ -49,6 +49,9 @@ jobs:
         cd .kube
         echo "${K8S_CONFIG}" | base64 --decode > config
       
-    - name: Get pods
-      run: kubectl get pod -n dev
+    - name: Delete pods
+      run: kubectl delete -k ./deploy/dev
+      
+    - name: Apply pods
+      run: kubectl apply -k ./deploy/dev
       
