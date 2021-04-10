@@ -1,8 +1,8 @@
-name: Docker Image CI
+name: build-deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ feature/cideploy ]
 
 jobs:
   build:
