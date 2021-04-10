@@ -50,8 +50,9 @@ jobs:
         echo "${K8S_CONFIG}" | base64 --decode > config
       
     - name: Delete pods
-      run: kubectl delete -k ./deploy/dev
+      run: kubectl delete -k ./deploy/dev -n dev
+      continue-on-error: true
       
     - name: Apply pods
-      run: kubectl apply -k ./deploy/dev
+      run: kubectl apply -k ./deploy/dev -n dev
       
