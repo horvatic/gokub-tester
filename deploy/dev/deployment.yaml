@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gokub-tester
+spec:
+  containers:
+    - name: gokub-tester
+      livenessProbe:
+        httpGet:
+          path: /dev/gokub/health
+          port: 8080
+        initialDelaySeconds: 3
+        periodSeconds: 3

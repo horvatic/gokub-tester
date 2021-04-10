@@ -10,7 +10,6 @@ func main() {
 	namespace := os.Getenv("NAMESPACE")
 	service := os.Getenv("SERVICE")
 	http.HandleFunc(fmt.Sprintf("/%s/%s/%s", namespace, service, "health"), health)
-	http.HandleFunc("/health", health)
 	http.HandleFunc("/", testReq)
 	http.ListenAndServe(":8080", nil)
 }
