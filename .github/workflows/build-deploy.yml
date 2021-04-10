@@ -39,6 +39,16 @@ jobs:
         
     - name: Kubectl tool installer
       uses: Azure/setup-kubectl@v1
+  
+    - name: Decode Config
+      run: echo ${{ secrets.K8S_CONFIG }} | base64 --decode 
+  
+    - name: Setup kubectl
+    - run: |
+        cd $HOME
+        mkdir .kube
+        cd .kube
+        echo ${{ secrets.K8S_CONFIG }} | base64 --decode > config
       
-    - name: test version
-      run: kubectl version --client
+    - name: Get pods
+      run: kubectl get pod -n dev
