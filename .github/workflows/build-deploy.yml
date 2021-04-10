@@ -41,11 +41,13 @@ jobs:
       uses: Azure/setup-kubectl@v1
   
     - name: Setup kubectl
+      env: # 
+        K8S_CONFIG: ${{ secrets.K8S_CONFIG }}
       run: |
         cd $HOME
         mkdir .kube
         cd .kube
-        echo ${{ secrets.K8S_CONFIG }} | base64 --decode > config
+        echo "${K8S_CONFIG}" | base64 --decode > config
       
     - name: Get pods
       run: kubectl get pod -n dev
