@@ -40,9 +40,6 @@ jobs:
     - name: Kubectl tool installer
       uses: Azure/setup-kubectl@v1
   
-    - name: Decode Config
-      run: echo ${{ secrets.K8S_CONFIG }} | base64 --decode 
-  
     - name: Setup kubectl
     - run: |
         cd $HOME
