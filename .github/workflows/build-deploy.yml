@@ -85,7 +85,10 @@ jobs:
     - name: Apply pods
       run: kubectl apply -k dev -n dev
       
-    - name: Wait for pods to start
+    - name: Wait For Deployment To Start
+      run: sleep 10s
+      
+    - name: Wait For Pods To Start
       run: kubectl wait --for=condition=ready pod -l app=gokub-tester -n dev --timeout=10m
       
   prod:
@@ -114,6 +117,9 @@ jobs:
     - name: Apply pods
       run: kubectl apply -k prod -n prod
       
-    - name: Wait for pods to start
+    - name: Wait For Deployment To Start
+      run: sleep 10s
+      
+    - name: Wait For Pods To Start
       run: kubectl wait --for=condition=ready pod -l app=gokub-tester -n prod --timeout=10m
       
