@@ -76,3 +76,6 @@ jobs:
     - name: Apply pods
       run: kubectl apply -k dev -n dev
       
+    - name: Wait for pods to start
+      run: kubectl wait --for=condition=ready pod -l app=gokub-tester -n dev
+      
