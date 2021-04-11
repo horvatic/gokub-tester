@@ -1,16 +1,22 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: gokub-tester
   labels:
     app: gokub-tester
 spec:
   replicas: 2
-  containers:
-    - name: gokub-tester
-      livenessProbe:
-        httpGet:
-          path: /prod/gokub/health
-          port: 8080
-        initialDelaySeconds: 3
-        periodSeconds: 3
+  template:
+    metadata:
+      name: gokub-tester
+      labels:
+        app: gokub-tester
+    spec:
+      containers:
+      - name: gokub-tester
+        livenessProbe:
+          httpGet:
+            path: /prod/gokub/health
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3
