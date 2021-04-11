@@ -6,6 +6,7 @@ metadata:
     app: gokub-tester
 spec:
   replicas: 2
+  revisionHistoryLimit : 5
   template:
     metadata:
       name: gokub-tester
