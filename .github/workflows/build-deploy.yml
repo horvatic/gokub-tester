@@ -69,9 +69,6 @@ jobs:
       with:
         name: deploy
       
-    - name: Check Folder Dir
-      run: ls
-      
     - name: Delete pods
       run: kubectl delete -k dev -n dev
       continue-on-error: true
