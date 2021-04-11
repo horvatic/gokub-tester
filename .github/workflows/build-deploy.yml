@@ -79,3 +79,36 @@ jobs:
     - name: Wait for pods to start
       run: kubectl wait --for=condition=ready pod -l app=gokub-tester -n dev
       
+  prod:
+    name: Deploy To Prod
+    environment:
+      name: prod
+    runs-on: ubuntu-latest
+    needs: dev
+    
+    steps:
+    - name: Kubectl tool installer
+      uses: Azure/setup-kubectl@v1
+  
+    - name: Setup kubectl
+      env: 
+        K8S_CONFIG: ${{ secrets.K8S_CONFIG }}
+      run: |
+        mkdir -p $HOME/.kube
+        echo "${K8S_CONFIG}" | base64 --decode > $HOME/.kube/config
+      
+    - name: Download Deploy
+      uses: actions/download-artifact@v2
+      with:
+        name: deploy
+      
+    - name: Delete pods
+      run: kubectl delete -k prod -n prod
+      continue-on-error: true
+      
+    - name: Apply pods
+      run: kubectl apply -k prod -n prod
+      
+    - name: Wait for pods to start
+      run: kubectl wait --for=condition=ready pod -l app=gokub-tester -n prod
+      
