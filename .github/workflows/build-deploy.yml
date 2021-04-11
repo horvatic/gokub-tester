@@ -86,7 +86,7 @@ jobs:
       run: kubectl apply -k dev -n dev
       
     - name: Wait for pods to start
-      run: kubectl wait --for=condition=ready pod -l app=gokub-tester -n dev
+      run: kubectl wait --for=condition=ready pod -l app=gokub-tester -n dev --timeout=10m
       
   prod:
     name: Deploy To Prod
@@ -115,5 +115,5 @@ jobs:
       run: kubectl apply -k prod -n prod
       
     - name: Wait for pods to start
-      run: kubectl wait --for=condition=ready pod -l app=gokub-tester -n prod
+      run: kubectl wait --for=condition=ready pod -l app=gokub-tester -n prod --timeout=10m
       
