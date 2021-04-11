@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: gokub-tester
-        image: horvatic/gokub-tester
+        image: horvatic/gokub-tester:${TAG}
         env:
           - name: NAMESPACE
             valueFrom:

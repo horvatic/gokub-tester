@@ -20,6 +20,10 @@ jobs:
         
     - name: Build
       run: go build -v cmd/gokub-tester/main.go
+
+    - name: Set SHA
+      id: vars
+      run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
@@ -37,7 +41,16 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true 
-        tags: horvatic/gokub-tester:latest
+        tags: horvatic/gokub-tester:${{ steps.vars.outputs.sha_short }}
+    
+    - name: Save SHA
+      env: 
+        TAG: ${{ steps.vars.outputs.sha_short }}
+      run: |
+         envsubst < deploy/base/deployment.yaml > tempbase
+         cat tempbase > deploy/base/deployment.yaml
+         rm tempbase 
+
   
     - name: 'Upload Deploy'
       uses: actions/upload-artifact@v2
@@ -69,10 +82,6 @@ jobs:
       with:
         name: deploy
       
-    - name: Delete pods
-      run: kubectl delete -k dev -n dev
-      continue-on-error: true
-      
     - name: Apply pods
       run: kubectl apply -k dev -n dev
       
@@ -101,10 +110,6 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: deploy
-      
-    - name: Delete pods
-      run: kubectl delete -k prod -n prod
-      continue-on-error: true
       
     - name: Apply pods
       run: kubectl apply -k prod -n prod
