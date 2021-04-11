@@ -69,13 +69,13 @@ jobs:
       with:
         name: deploy
       
-    - name: Check Folder Dir
-      run: ls
-      
     - name: Delete pods
       run: kubectl delete -k dev -n dev
       continue-on-error: true
       
     - name: Apply pods
       run: kubectl apply -k dev -n dev
+      
+    - name: Wait for pods to start
+      run: kubectl wait --for=condition=ready pod -l app=gokub-tester -n dev
       
