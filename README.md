@@ -7,7 +7,7 @@ Run the following command to deploy
 kubectl apply -k deploy/dev
 ```
 
-or replica set run 
+or run the following command to deploy and have a replica set 
 
 ```
 kubectl apply -k deploy/prod
